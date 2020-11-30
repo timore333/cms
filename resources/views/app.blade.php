@@ -1,23 +1,32 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+@Include('layouts.partials.head')
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+<body class="skin-default-dark fixed-layout">
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+@include('layouts.partials.preloader')
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+<div id="main-wrapper">
 
-        <!-- Scripts -->
-        @routes
-        <script src="{{ mix('js/app.js') }}" defer></script>
-    </head>
-    <body class="font-sans antialiased">
-        @inertia
-    </body>
+@Include('layouts.partials.topbar')
+@Include('layouts.partials.left_side_bar')
+
+<!-- Page wrapper  -->
+    <div class="page-wrapper">
+
+        <div class="container-fluid">
+{{--        @Include('layouts.partials.bread_crumb')--}}
+
+        <!-- Page content  -->
+            @inertia
+
+            @Include('layouts.partials.right_side_bar')
+        </div>
+        <!-- End Container fluid  -->
+    </div>
+    <!-- End Page wrapper  -->
+
+    @Include('layouts.partials.footer')
+</div>
+@Include('layouts.partials.scripts')
+
+</body>
 </html>
