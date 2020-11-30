@@ -1,5 +1,8 @@
 <?php
 
+
+use App\Models\Tenants\Admin\User;
+
 return [
 
     /*
@@ -68,7 +71,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => User::class,
         ],
 
         // 'users' => [
