@@ -8,6 +8,7 @@ import { InertiaApp } from '@inertiajs/inertia-vue';
 import { InertiaForm } from 'laravel-jetstream';
 import PortalVue from 'portal-vue';
 import {__, trans, setLocale, getLocale, transChoice, MaticeLocalizationConfig, locales} from "matice"
+import VModal from 'vue-js-modal'
 
 Vue.mixin({
     methods: {
@@ -32,6 +33,7 @@ Vue.mixin({ methods: { route } });
 Vue.use(InertiaApp);
 Vue.use(InertiaForm);
 Vue.use(PortalVue);
+Vue.use(VModal, {dialog: true});
 
 const app = document.getElementById('app');
 
