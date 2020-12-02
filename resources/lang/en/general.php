@@ -83,6 +83,16 @@ return [
     'office' => 'Office',
     'notes' => 'Notes',
     'note' => 'Note',
+    'browser' => 'Browser',
+    'browsers' => 'Browsesr',
+    'session' => 'Session',
+    'sessions' => 'Sessions',
+    'new' => 'New',
+    'confirm' => 'Confirm',
+    'current' => 'Current',
+    'last_active ' => 'Last active ',
+    'this_device' => 'This device',
+    'saved' => 'Saved',
 
 
 

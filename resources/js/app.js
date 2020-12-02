@@ -34,6 +34,7 @@ Vue.use(InertiaApp);
 Vue.use(InertiaForm);
 Vue.use(PortalVue);
 Vue.use(VModal, {dialog: true});
+window.Bus = new Vue();
 
 const app = document.getElementById('app');
 

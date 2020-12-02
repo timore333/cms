@@ -13,5 +13,10 @@ return [
     'roles_permission_subtitle' => 'Double Click the permission from the left box to assign && from the right box to remove',
     'change_role_note' => 'You Don\'t have to change the user role, if you want to give the user a specific permission you can do so through the permission tab, this will add a permission to existing user permission',
     'roles_title' => 'If you want to chang role, select another role and click change role.',
+    'inter_password_to_logout_other_browsers' => 'Please enter your password to confirm you would like to logout of your other browser sessions across all of your devices.',
+    'logout_other_browsers_subtitle' => 'If necessary, you may logout of all of your other browser sessions across all of your devices. Some of your recent sessions are listed below; however, this list may not be exhaustive. If you feel your account has been compromised, you should also update your password.',
+    'update_username_and_email' => 'Update your username and email.',
+    'password_description' => 'Ensure your account is using a long, random password to stay secure.',
+    'manage_logout_subtitle' => '  Manage and logout your active sessions on other browsers and devices.',
 
 ];

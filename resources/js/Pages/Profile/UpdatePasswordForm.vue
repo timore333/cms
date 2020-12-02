@@ -1,41 +1,35 @@
 <template>
     <jet-form-section @submitted="updatePassword">
-        <template #title>
-            Update Password
-        </template>
-
-        <template #description>
-            Ensure your account is using a long, random password to stay secure.
-        </template>
 
         <template #form>
-            <div class="col-span-6 sm:col-span-4">
-                <jet-label for="current_password" value="Current Password" />
-                <jet-input id="current_password" type="password" class="mt-1 block w-full" v-model="form.current_password" ref="current_password" autocomplete="current-password" />
-                <jet-input-error :message="form.error('current_password')" class="mt-2" />
+            <div class="form-group">
+                <label for="current_password">{{$__('general.current')}} {{$__('general.password')}}</label>
+                <input autocomplete="current-password" class="form-control" id="current_password" ref="current_password" type="password" v-model="form.current_password"/>
+                <jet-input-error :message="form.error('current_password')"/>
             </div>
 
-            <div class="col-span-6 sm:col-span-4">
-                <jet-label for="password" value="New Password" />
-                <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" autocomplete="new-password" />
-                <jet-input-error :message="form.error('password')" class="mt-2" />
+            <div class="form-group">
+                <label for="password">{{$__('general.new')}} {{$__('general.password')}}</label>
+                <input autocomplete="new-password" class="form-control" id="password" type="password" v-model="form.password"/>
+                <jet-input-error :message="form.error('password')"/>
             </div>
 
-            <div class="col-span-6 sm:col-span-4">
-                <jet-label for="password_confirmation" value="Confirm Password" />
-                <jet-input id="password_confirmation" type="password" class="mt-1 block w-full" v-model="form.password_confirmation" autocomplete="new-password" />
-                <jet-input-error :message="form.error('password_confirmation')" class="mt-2" />
+            <div class="form-group">
+                <label for="password_confirmation">{{$__('general.confirm')}} {{$__('general.password')}}</label>
+                <input autocomplete="new-password" class="form-control" id="password_confirmation" type="password" v-model="form.password_confirmation"/>
+                <jet-input-error :message="form.error('password_confirmation')"/>
             </div>
         </template>
 
         <template #actions>
-            <jet-action-message :on="form.recentlySuccessful" class="mr-3">
-                Saved.
+
+            <button :class="{ 'opacity-25': form.processing }" :disabled="form.processing" class="btn btn-secondary waves-effect pull-right">
+                {{$__('general.save')}}
+            </button>
+            <jet-action-message :on="form.recentlySuccessful">
+                {{$__('general.saved')}}
             </jet-action-message>
 
-            <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Save
-            </jet-button>
         </template>
     </jet-form-section>
 </template>
