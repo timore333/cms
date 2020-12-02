@@ -8,8 +8,5 @@
 
 	    <li><a href="{{url('roles')}}">@lang('general.roles') <i class="icon-lock"></i></a></li>
 
-{{-- 	permission not for users, thay cant change it or create new
-	<li><a href="{{url('permissions')}}">Premissions <i class="icon-key text-danger"></i></a></li>
-	 --}}
 	</ul>
 </li>

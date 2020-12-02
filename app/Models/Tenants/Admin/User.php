@@ -2,7 +2,7 @@
 
 namespace App\Models\Tenants\Admin;
 
-use App\Traits\Genral\Phoneable;
+use App\Traits\General\Phoneable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -40,6 +40,8 @@ class User extends Authenticatable
         'medical_id',
         'speciality',
     ];
+
+    protected $with=['phones'];
 
     /**
      * The attributes that should be hidden for arrays.

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Traits\Genral;
+namespace App\Traits\General;
 
-use App\Models\Setting\Phone;
+use App\Models\Tenants\Setting\Phone;
 
 trait Phoneable
 {
