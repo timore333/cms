@@ -1,4 +1,5 @@
 require('./bootstrap');
+require('./Core/datatable');
 
 require('moment');
 
