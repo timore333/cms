@@ -6,7 +6,6 @@ use App\Actions\Fortify\PasswordValidationRules;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Models\Setting\Phone;
 use App\Models\Tenants\Admin\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -36,7 +35,6 @@ class UsersController extends Controller
      */
     public function index()
     {
-
         return Inertia::render('Tenants/Admin/Users/Index', [
             'users' =>fn()=> User::with('phones')->get(),
         ])->withViewData(['title' => 'users']);

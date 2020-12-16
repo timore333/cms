@@ -338,4 +338,6 @@ return [
     'medical_history' => 'Medical History',
     'medical_chart' => 'Medical Chart',
     'history' => 'History',
+
+    'footer'=>'Thnaya Dental Clinic Admin by thnaya.com',
 ];

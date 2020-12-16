@@ -1,3 +1,6 @@
-/*@import 'tailwindcss/base';*/
-/*@import 'tailwindcss/components';*/
-/*@import 'tailwindcss/utilities';*/
+/*@import "../theme/pages/dashboard1.css";*/
+/*@import "../theme/assets/node_modules/toast-master/css/jquery.toast.css";*/
+/*@import "../theme/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css";*/
+/*@import "../theme/assets/node_modules/morrisjs/morris.css";*/
+/*@import "../theme/assets/node_modules/c3-master/c3.min.css";*/
+

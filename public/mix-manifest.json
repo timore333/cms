@@ -1,4 +1,13 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/css/dark/style.css": "/css/dark/style.css",
+    "/css/light/style.css": "/css/light/style.css",
+    "/css/rtl/style.css": "/css/rtl/style.css",
+    "/css/horizontal/style.css": "/css/horizontal/style.css",
+    "/css/pages/login.css": "/css/pages/login.css",
+    "/css/multi-select.css": "/css/multi-select.css",
+    "/js/main.js": "/js/main.js",
+    "/js/jquery.js": "/js/jquery.js",
+    "/js/multi-select.js": "/js/multi-select.js"
 }

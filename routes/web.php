@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Tenants\Admin\RolesController;
 use App\Http\Controllers\Tenants\Admin\UsersController;
+use App\Models\Tenants\Setting\Setting;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,6 +15,7 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 Route::get('/test',function(){
-    dd(auth()->user()->hasPermission('access medical'));
+//Setting::create(['name'=>'locale', 'value'=>'en']);
 });
 
+Route::resource('/setting',\App\Http\Controllers\Tenants\Setting\SettingController::class);

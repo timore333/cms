@@ -1,0 +1,36 @@
+@import '../theme/dark/scss/variable';// (All the predefined varialbes)
+
+//Colors
+@import '../theme/dark/scss/colors/default';
+@import '../theme/dark/scss/colors/green';
+@import '../theme/dark/scss/colors/megna';
+@import '../theme/dark/scss/colors/purple';
+@import '../theme/dark/scss/colors/red';
+@import '../theme/dark/scss/colors/blue';
+@import '../theme/dark/scss/colors/blue-dark';
+@import '../theme/dark/scss/colors/default-dark';
+@import '../theme/dark/scss/colors/green-dark';
+@import '../theme/dark/scss/colors/red-dark';
+@import '../theme/dark/scss/colors/megna-dark';
+@import '../theme/dark/scss/colors/purple-dark';
+
+
+// Import Bootstrap source files
+@import "../theme/assets/node_modules/bootstrap/scss/bootstrap";
+
+//This is for the icons
+@import '../theme/assets/icons/font-awesome/css/font-awesome.min.css';
+@import '../theme/assets/icons/simple-line-icons/css/simple-line-icons.css';
+@import '../theme/assets/icons/weather-icons/css/weather-icons.min.css';
+@import '../theme/assets/icons/themify-icons/themify-icons.css';
+@import '../theme/assets/icons/flag-icon-css/flag-icon.min.css';
+@import "../theme/assets/icons/material-design-iconic-font/css/materialdesignicons.min.css";
+//@import '../theme/assets/icons/crypto-icons/cryptocoins.css';
+
+//This is the core files
+@import '../theme/dark/scss/core/core';//(This is for common style all over the theme)
+@import '../theme/dark/scss/widgets/widgets';//( This is for all widgets of the template )
+@import '../theme/dark/scss/responsive';//( This is for the responsive scss )
+
+//In This scss you can write your scss
+@import '../theme/dark/scss/custom';//(This is for your custom style)

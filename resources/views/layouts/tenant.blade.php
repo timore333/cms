@@ -1,6 +1,6 @@
 @Include('layouts.partials.head')
 
-<body class="skin-default-dark fixed-layout">
+<body class="{{$skin}} fixed-layout">
 
 @include('layouts.partials.preloader')
 
@@ -13,7 +13,7 @@
     <div class="page-wrapper">
 
         <div class="container-fluid">
-{{--        @Include('layouts.partials.bread_crumb')--}}
+        {{--        @Include('layouts.partials.bread_crumb')--}}
 
         <!-- Page content  -->
             @inertia
