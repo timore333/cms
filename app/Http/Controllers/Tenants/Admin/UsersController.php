@@ -37,7 +37,7 @@ class UsersController extends Controller
     {
         return Inertia::render('Tenants/Admin/Users/Index', [
             'users' =>fn()=> User::with('phones')->get(),
-        ])->withViewData(['title' => 'users']);
+        ])->withViewData(['title' => __('general.users')]);
     }
 
     /**
@@ -50,7 +50,7 @@ class UsersController extends Controller
         $roles = Role::get();
         return Inertia::render('Tenants/Admin/Users/Create', [
             'roles' => $roles,
-        ])->withViewData(['title' => 'create_user']);
+        ])->withViewData(['title' => __('general.create_user')]);
     }
 
     /**
@@ -102,7 +102,7 @@ class UsersController extends Controller
         return Inertia::render('Tenants/Admin/Users/Show', [
             'user' => fn() => $user,
             'suerPermissions' => fn() => $user->getPermissionNames(),
-        ])->withViewData(['title' => 'edit_user']);
+        ])->withViewData(['title' => __('general.edit_user')]);
 
     }
 
@@ -120,7 +120,7 @@ class UsersController extends Controller
             'roles' => fn() => Role::with('permissions')->get(),
             'permissions' => fn() => Permission::get(),
             'userPermissions' => fn() => $user->getPermissionNames()->keys()->all(),
-        ])->withViewData(['title' => 'edit_user']);
+        ])->withViewData(['title' => __('general.edit_user')]);
 
 
     }
@@ -134,7 +134,7 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $request->update();
-        return back()->with('message-success', 'User Updated.');
+        return back()->with('message-success', __('messages.user_updated.'));
     }
 
     /**
@@ -166,7 +166,7 @@ class UsersController extends Controller
                 $user->givePermissionTo((int)$permission);
             }
         }
-        return redirect('/users/' . $user->id . '/edit')->with('message-success', 'Permissions Updated.');
+        return redirect('/users/' . $user->id . '/edit')->with('message-success', __('messages.permission_updated'));
     }
 
     /**
@@ -182,11 +182,11 @@ class UsersController extends Controller
         if($user->getRole() === 'super-admin') {
             // we need to check if there is any super admins or not before Deleting.
             if(User::admins()->count() === 1) {
-                return redirect('/users')->with('message-error', 'This is The Only admin, you should always have at least one admin, before delete you need to create admin first.');;
+                return redirect('/users')->with('message-error', __('messages.can_not_delete_admin'));;
             }
         }
         $user->delete();
-        return redirect('/users')->with('message-success', 'User Deleted.');
+        return redirect('/users')->with('message-success', __('messages.user_deleted.'));
     }
 
 }

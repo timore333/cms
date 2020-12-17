@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ?? ''? __('general.'.$title ?? '') : config('app.name', 'Thnaya') }}</title>
+    <title>{{ $title ?? '' ? $title ?? ''  : config('app.name', 'Thnaya') }}</title>
 
     @routes
     @translations

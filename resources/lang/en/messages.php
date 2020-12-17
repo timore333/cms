@@ -4,6 +4,11 @@ return [
 
     'are_you_sure' => 'Are you sure ?',
     'no_permissions' => 'There is no permission assigned to this role',
+    'permission_updated' => 'Permission Updated',
+    'user_deleted' => 'User Deleted',
+    'user_updated' => 'User Updated',
+    'role_created' => 'Role Created',
+    'can_not_delete_admin' => 'This is The Only admin, you should always have at least one admin, before delete you need to create admin first.',
     'choose_permissions' => 'Double Click the permission from the left box to assign && from the right box to remove',
     'invalid_phone' => 'Phone number is invalid',
     'invalid_name' => 'The name is required',

@@ -168,6 +168,7 @@ return [
 
 
     'patients' => 'Patients',
+    'patient' => 'Patient',
     'patient_file' => 'Patient File',
     'patient_name' => 'Patient Name',
     'all_patients' => 'All Patients',
@@ -175,6 +176,7 @@ return [
     'edit_patients' => 'Edit Patients',
     'add_patient' => 'Add Patient',
     'new_patient' => 'New Patient',
+    'create_patient' => 'Create Patient',
     'old_patient' => 'Old Patient',
     'select_patient' => 'Select Patient',
     'profile_image' => 'Profile Image',

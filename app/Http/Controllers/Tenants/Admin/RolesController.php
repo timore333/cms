@@ -29,7 +29,7 @@ class RolesController extends Controller
         return Inertia::render('Tenants/Admin/Roles/Index', [
             'roles' => fn() =>Role::with('permissions')->get(),
             'colers' => fn() => ['primary', 'info', 'success', 'danger', 'warning']
-        ])->withViewData(['title' => 'all_roles']);
+        ])->withViewData(['title' => __('general.all_roles')]);
 
     }
 
@@ -45,7 +45,7 @@ class RolesController extends Controller
         $permissions = Permission::all();
         return Inertia::render('Tenants/Admin/Roles/Create', [
             'permissions' => fn() => $permissions,
-        ])->withViewData(['title' => 'add_role']);
+        ])->withViewData(['title' => __('general.add_role')]);
     }
 
     /**
@@ -66,7 +66,7 @@ class RolesController extends Controller
             }
         }
 
-        return redirect('/roles')->with('message', 'role created!');
+        return redirect('/roles')->with('message', __('messages.role_created'));
     }
 
     /**
@@ -85,7 +85,7 @@ class RolesController extends Controller
             'rolePermissions' =>fn() => $rolePermissions,
             'role' => fn() => $role->only('id', 'name'),
 
-        ])->withViewData(['title' => 'edit_role']);
+        ])->withViewData(['title' => __('general.edit_role')]);
 
     }
 
