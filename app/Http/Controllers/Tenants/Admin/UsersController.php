@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Tenants\Admin;
 
 use App\Actions\Fortify\PasswordValidationRules;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdatePasswordRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\Admin\UpdateUserRequest;
 use App\Models\Tenants\Admin\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -137,18 +136,6 @@ class UsersController extends Controller
         return back()->with('message-success', __('messages.user_updated.'));
     }
 
-    /**
-     * Update the specified user password.
-     *
-     * @param App\Requests\UpdatePasswordRequest $request
-     * @param User $user
-     * @return Response
-     */
-
-    public function updatePassword(UpdatePasswordRequest $request, User $user)
-    {
-        $request->updatePassword();
-    }
 
     /**
      * Update the specified user permissions.

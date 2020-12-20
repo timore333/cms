@@ -75,7 +75,7 @@ trait Photoable
             'name' => 'profile.png',
             'url' => Storage::url('images/' . $name),
             'type' => 'profile',
-            'catigory' => 'avatar',
+            'category' => 'avatar',
             'description' => 'default profile avatar',
         ]);
     }

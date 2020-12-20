@@ -89,7 +89,7 @@
     import AppLayout from '@/Layouts/AppLayout'
     import DeleteUserForm from './DeleteUserForm'
     import JetSectionBorder from '@/Jetstream/SectionBorder'
-    import AddPhone from '@/Jetstream/AddPhone'
+    import AddPhone from '@/Jetstream/Tenants/General/AddPhone'
     import LogoutOtherBrowserSessionsForm from './LogoutOtherBrowserSessionsForm'
     import TwoFactorAuthenticationForm from './TwoFactorAuthenticationForm'
     import UpdatePasswordForm from './UpdatePasswordForm'

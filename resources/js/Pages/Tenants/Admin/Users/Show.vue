@@ -133,7 +133,7 @@
 
 <script>
     import AppLayout from "@/Layouts/AppLayout";
-    import AddPhone from '@/Jetstream/AddPhone'
+    import AddPhone from '@/Jetstream/Tenants/General/AddPhone'
     import FormGroup from '@/Jetstream/Form/FormGroup'
     import InputText from "@/Jetstream/Form/Input/InputText";
     import InputError from "@/Jetstream/InputError";

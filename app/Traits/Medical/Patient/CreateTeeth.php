@@ -49,7 +49,7 @@ trait CreateTeeth
                     $temp = new Photo();
                     $temp->name = $image;
                     $temp->type = 'image';
-                    $temp->catigory = 'tooth';
+                    $temp->category = 'tooth';
                     $temp->description = $image;
                     $temp->url = $url;
                     $tooth->photos()->save($temp);

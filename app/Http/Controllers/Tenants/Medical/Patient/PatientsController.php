@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Tenants\Medical\Patient;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Medical\Patient\CreatePatientRequest;
+use App\Http\Requests\Medical\Patient\UpdatePatientRequest;
+use App\Models\Tenants\Medical\Insurance\Company;
 use App\Models\Tenants\Medical\Patient\Patient;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,32 +16,27 @@ class PatientsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return inertia response
      */
     public function index()
     {
         return Inertia::render('Tenants/Medical/Patient/Patient/Index', [
             'patients' => fn() => Patient::with('phones')->get(),
         ])->withViewData(['title' => __('general.patients')]);
-
-        $patients = Patient::with('phones')->get();
-        $user = new UserResource(auth()->user());
-        return view('medical.patients.index', compact('patients', 'user'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return inertia Response
      */
     public function create()
     {
         return Inertia::render('Tenants/Medical/Patient/Patient/Create', [
             'patients' => fn() => Patient::with('phones')->get(),
+            'insuranceCompanies ' => fn() => Company::get(),
         ])->withViewData(['title' => __('general.create_patient')]);
 
-        $insuranceCompanies = InsuranceCompany::all('name', 'id');
-        return view('medical.patients.create', compact('insuranceCompanies'));
     }
 
     /**
@@ -49,7 +47,6 @@ class PatientsController extends Controller
      */
     public function store(CreatePatientRequest $request)
     {
-
         $request->update();
     }
 
@@ -75,7 +72,7 @@ class PatientsController extends Controller
      */
     public function edit(Patient $patient)
     {
-        $insuranceCompanies = InsuranceCompany::all('name', 'id');
+        $insuranceCompanies = Company::all('name', 'id');
         return view('medical.patients.edit', compact('patient', 'insuranceCompanies'));
     }
 
@@ -88,7 +85,6 @@ class PatientsController extends Controller
      */
     public function update(UpdatePatientRequest $request, Patient $patient)
     {
-
         $request->update();
     }
 

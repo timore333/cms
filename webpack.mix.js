@@ -5,23 +5,22 @@ mix.js('resources/js/app.js', 'public/js')
 
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
-        // require('tailwindcss'),
     ])
     .styles([
         'resources/theme/dark/style.css'
-    ],'public/css/dark/style.css')
+    ], 'public/css/dark/style.css')
 
     .styles([
         'resources/theme/main/style.css'
-    ],'public/css/light/style.css')
+    ], 'public/css/light/style.css')
 
     .styles([
         'resources/theme/rtl/style.css'
-    ],'public/css/rtl/style.css')
+    ], 'public/css/rtl/style.css')
 
     .styles([
         'resources/theme/horizontal/style.css'
-    ],'public/css/horizontal/style.css')
+    ], 'public/css/horizontal/style.css')
 
     // login page styles
     .styles([
@@ -40,12 +39,12 @@ mix.js('resources/js/app.js', 'public/js')
 
     // theme main scripts
     .scripts([
+        'resources/theme/assets/node_modules/popper/popper.min.js',
         'resources/theme/assets/node_modules/bootstrap/dist/js/bootstrap.min.js',
         'resources/theme/assets/js/waves.js',
         'resources/theme/assets/js/sidebarmenu.js',
         'resources/theme/assets/js/custom.min.js',
         'resources/theme/assets/js/perfect-scrollbar.jquery.min.js',
-        'resources/theme/assets/node_modules/popper/popper.min.js',
         'resources/theme/assets/node_modules/toast-master/js/jquery.toast.js',
     ], 'public/js/main.js')
 
@@ -64,15 +63,18 @@ mix.js('resources/js/app.js', 'public/js')
         'resources/theme/assets/node_modules/multiselect/js/jquery.multi-select.js',
     ], 'public/js/multi-select.js')
 
-    // .scripts([
-    //     'node_modules/tableexport.jquery.plugin/libs/FileSaver/FileSaver.min.js',
-    //     'node_modules/tableexport.jquery.plugin/libs/js-xlsx/xlsx.core.min.js',
-    //     'node_modules/tableexport.jquery.plugin/libs/jsPDF/jspdf.min.js',
-    //     'node_modules/tableexport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js',
-    //     'node_modules/tableexport.jquery.plugin/libs/pdfmake/pdfmake.min.js',
-    //     'node_modules/tableexport.jquery.plugin/libs/pdfmake/mirza_fonts.js',
-    //     'node_modules/tableexport.jquery.plugin/tableExport.min.js',
-    // ],  'public/js/datatable.js')
+    .scripts([
+        'resources/theme/assets/node_modules/datatables/jquery.dataTables.min.js',
+        'node_modules/bootstrap-table/dist/bootstrap-table.js',
+        'node_modules/tableexport.jquery.plugin/tableExport.min.js',
+        'node_modules/bootstrap-table/dist/extensions/export/bootstrap-table-export.min.js',
+        'node_modules/bootstrap-table/dist/extensions/print/bootstrap-table-print.min.js',
+        'node_modules/bootstrap-table/dist/extensions/filter-control/bootstrap-table-filter-control.min.js',
+        'node_modules/tableexport.jquery.plugin/libs/js-xlsx/xlsx.core.min.js',
+        'node_modules/tableexport.jquery.plugin/libs/FileSaver/FileSaver.min.js',
+        'node_modules/tableexport.jquery.plugin/libs/jsPDF/jspdf.min.js',
+        'node_modules/tableexport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js',
+    ], 'public/js/datatable.js')
 
     .webpackConfig(require('./webpack.config'));
 

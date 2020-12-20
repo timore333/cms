@@ -18,6 +18,10 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+
+        \App\Events\Tenants\Meical\Patients\PatientCreated::class => [
+            \App\Listeners\Tenants\Medical\Patients\CreatePermenantTeeth::class,
+        ],
     ];
 
     /**

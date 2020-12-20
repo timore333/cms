@@ -3,165 +3,198 @@
         <div class="container m-t-40">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">{{$__('general.create')}} {{$__('general.users')}}</h4>
-                    <div class="col-8">
-                        <form @submit.prevent="submit" class="form m-t-40">
+                    <form @submit.prevent="submit()" action="#" class="form-horizontal">
 
-                            <!-- Name -->
-                            <form-group :has-error="errors.name">
-                                <form-label for="name">{{$__('general.name')}}</form-label>
-                                <div class="col-10">
-                                    <input-text :has-error="errors.name" :placeholder="$__('general.name')"
-                                                id="name"
-                                                v-model="form.name"></input-text>
-                                    <input-error :message="errors.name"></input-error>
-                                </div>
-                            </form-group>
+                        <div class="form-body">
 
-                            <!--  Username -->
-                            <form-group :has-error=" errors.username">
-                                <form-label for="username">{{$__('general.username')}}</form-label>
-                                <div class="col-10">
-                                    <input-text :has-error="errors.username" :placeholder="$__('general.username')"
-                                                id="username" v-model="form.username"></input-text>
-                                    <input-error :message="errors.username"></input-error>
-                                </div>
-                            </form-group>
+                            <h3 class="box-title">{{ $__('general.personal_info') }}</h3>
+                            <hr class="m-t-0 m-b-40">
 
-                            <!--  email -->
-                            <form-group :has-error="errors.email">
-                                <form-label for="email">{{$__('general.email')}}</form-label>
-                                <div class="col-10">
-                                    <input-email :has-error="errors.email" :placeholder="$__('general.email')"
-                                                 id="email"
-                                                 v-model="form.email"></input-email>
-                                    <input-error :message="errors.email"></input-error>
-                                </div>
-                            </form-group>
-
-                            <!-- Role -->
-                            <form-group :has-error="errors.role">
-                                <form-label for="role">{{$__('general.role')}}</form-label>
-                                <div class="col-10">
-                                    <select :class="{'form-contorl-danger':errors.role }" class="custom-select"
-                                            id="role"
-                                            v-model="form.role">
-                                        <option selected="" value="">Choose Role</option>
-                                        <option :value="role" v-for="role in roles"> {{role.name}}</option>
-                                    </select>
-                                    <input-error :message="errors.role"></input-error>
-                                </div>
-                            </form-group>
-
-                            <!--  Doctor-->
-                            <div v-if="form.role.name === 'doctor'">
-                                <h4>{{$__('general.medical_data')}}</h4>
-                                <hr>
-                                <!-- medical_id-->
-                                <form-group :has-error="errors.medical_id">
-                                    <form-label for="medical_id">{{$__('general.medical_id')}}</form-label>
-                                    <div class="col-10">
-                                        <input-text :has-error="errors.medical_id" :placeholder="$__('general.medical_id')"
-                                                    id="medical_id"
-                                                    v-model="form.medical_id"></input-text>
-                                        <input-error :message="errors.medical_id"></input-error>
-                                    </div>
-                                </form-group>
-
-                                <!--  position -->
-                                <form-group :eroor="errors.position">
-                                    <form-label for="position">{{$__('general.position')}}</form-label>
-                                    <div class="col-10">
-                                        <input-text :has-error="errors.position" :placeholder="$__('general.position')"
-                                                    id="position"
-                                                    v-model="form.position"></input-text>
-                                        <input-error :message="errors.position"></input-error>
-                                    </div>
-                                </form-group>
-
-                                <!--  speciality -->
-                                <form-group :has-error="errors.speciality">
-                                    <form-label for="speciality">{{$__('general.speciality')}}</form-label>
-                                    <div class="col-10">
-                                        <input-text :has-error="errors.speciality" :placeholder="$__('general.position')"
-                                                    id="speciality" v-model="form.speciality"></input-text>
-                                        <input-error :message="errors.speciality"></input-error>
-                                    </div>
-                                </form-group>
-
-                                <!--  address -->
-                                <form-group :has-error="errors.address">
-                                    <form-label for="address">{{$__('general.address')}}</form-label>
-                                    <div class="col-10">
-                                        <input-text :has-error="errors.address" :placeholder="$__('general.address')" id="address"
-                                                    type="text" v-model="form.address"></input-text>
-                                        <input-error :message="errors.address"></input-error>
-                                    </div>
-                                </form-group>
-                                <hr class="m-t-40 m-b-40">
-                            </div>
-
-                            <!-- Password-->
-                            <form-group :has-error="errors.password">
-                                <form-label for="password">{{$__('general.password')}}</form-label>
-                                <div class="col-10">
-                                    <input-password :has-error="errors.password" :placeholder="$__('general.password')"
-                                                    id="password"
-                                                    v-model="form.password"></input-password>
-                                    <input-error :message="errors.password"></input-error>
-                                </div>
-                            </form-group>
-
-                            <!--  Password confirmation -->
-                            <form-group :has-error="errors.password_confirmation">
-                                <form-label for="password_confirmation">{{$__('general.password_confirmation')}}
-                                </form-label>
-                                <div class="col-10">
-                                    <input-password :has-error="errors.password_confirmation"
-                                                    :placeholder="$__('general.password_confirmation')"
-                                                    id="password_confirmation"
-                                                    v-model="form.password_confirmation"></input-password>
-                                    <input-error :message="errors.password_confirmation"></input-error>
-                                </div>
-                            </form-group>
-
-                            <add-phone></add-phone>
-                            <div v-if="form.phones.length > 0">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <tbody>
-                                                <tr v-for="phone in form.phones">
-                                                    <td>{{phone.type}}</td>
-                                                    <td>{{phone.number}}</td>
-                                                    <td><a @click.prevent="deletPHone(phone.number)" href="#"><i class="fa fa-close text-danger"></i></a></td>
-                                                </tr>
-
-                                                </tbody>
-                                            </table>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div :class="{' has-danger':form.error('name')}" class="form-group row">
+                                        <label class="control-label text-right col-md-3">{{
+                                            $__('general.patient_name') }}</label>
+                                        <div class="col-md-9">
+                                            <input :class="{' form-control-danger':form.error('name')}" :placeholder="$__('general.patient_name')" class="form-control"
+                                                   type="text"
+                                                   v-model="form.name">
+                                            <small class="form-control-feedback" v-if="form.error('name')">{{form.errors.get('name')}}</small>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group row"
+                                         v-bind:class="{' has-danger':form.error('address')}">
+                                        <label class="control-label text-right col-md-3">{{ $__('general.address') }}</label>
+                                        <div class="col-md-9">
+                                            <input :placeholder="$__('general.address')" class="form-control" type="text"
+                                                   v-bind:class="{' form-control-danger':form.error('address')}"
+                                                   v-model="form.address">
+                                            <small class="form-control-feedback" v-if="form.error('address')">{{form.errors.get('address')}}</small>
 
-                            <hr class="m-t-40 m-b-20">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
                             <div class="row">
-                                <div class="col-4">
-                                    <button-success class="btn-block">{{ $__('general.go')}}</button-success>
+                                <div class="col-md-6">
+                                    <div class="form-group row"
+                                         v-bind:class="{' has-danger':form.error('gender')}">
+                                        <label class="control-label text-right col-md-3">{{ $__('general.gender') }}</label>
+                                        <div class="col-md-9">
+                                            <select class="form-control custom-select" v-bind:class="{'form-control-danger': form.error('gender')}"
+                                                    v-model="form.gender">
+                                                <option selected value="male">{{ $__('general.male') }}</option>
+                                                <option value="female">{{ $__('general.female') }}</option>
+                                            </select>
+
+                                            <small class="form-control-feedback" v-if="form.error('gender')">{{form.errors.get('gender')}}</small>
+
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-4">
-                                    <inertia-link class="btn btn-danger btn-block" href="/users">{{ $__('general.cancel')}}</inertia-link>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group row"
+                                         v-bind:class="{' has-danger':form.error('birth_date')}">
+                                        <label class="control-label text-right col-md-3">{{ $__('general.birth_date') }}</label>
+                                        <div class="col-md-9">
+                                            <input class="form-control" placeholder="dd/mm/yyyy" type="date"
+                                                   v-bind:class="{'form-control-danger' : form.error('birth_date')}"
+                                                   v-model="form.birth_date">
+
+                                            <small class="form-control-feedback" v-if="form.error('birth_date')">{{form.errors.get('birth_date')}}</small>
+
+                                        </div>
+                                    </div>
                                 </div>
+                                <!--/span-->
                             </div>
+                            <!--/row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row form.errors.get('email') ? ' has-danger' : '' }}">
+                                        <label class="control-label text-right col-md-3">{{ $__('general.email') }}</label>
+                                        <div class="col-md-9">
+                                            <input :placeholder="$__('general.email')" class="form-control form.errors.get('email') ? ' form-control-danger' : '' }}"
+                                                   type="email"
+                                                   v-model="form.email">
+
+                                            <small class="form-control-feedback" v-if="form.error('email')">{{form.errors.get('emial')}}</small>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right col-md-3">{{ $__('general.payment') }}</label>
+                                        <div class="col-md-9">
+                                            <div class="custom-control custom-radio">
+                                                <input class="custom-control-input" id="customRadio3" type="radio"
+                                                       v-model="form.payment" value="cash">
+                                                <label class="custom-control-label" for="customRadio3">{{ $__('general.safe') }}</label>
+                                            </div>
+                                            <div class="custom-control custom-radio">
+                                                <input class="custom-control-input" id="customRadio4" type="radio"
+                                                       v-model="form.payment" value="insurance">
+                                                <label class="custom-control-label" for="customRadio4">{{ $__('general.insurance') }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right col-md-3">{{ $__('general.profile_image') }}</label>
+                                        <div class="form-group col-md-9 ">
+                                            <a @click.prevent="setImage" class="form-control" href="#">{{ $__('general.' + imageButtonText) }} </a>
+                                        </div>
+                                    </div>
+                                </div>
 
 
-                        </form>
-                    </div>
+                                <div class="col-md-6" v-if="form.payment === 'insurance'">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right col-md-3">{{ $__('general.insurance') }} </label>
+                                        <div class="form-group col-md-9 ">
+                                            <a @click.prevent="setInsuranceImage" href="">{{ $__('general.add_insurance_details') }} </a>
+                                        </div>
+                                    </div>
+                                </div>
 
+
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+
+                            <!-- Phones -->
+                            <h3 class="box-title">{{ $__('general.phones') }}
+                                <a @click.prevent="addPhone()" class="btn btn-success pull-right" href=""><span><i
+                                        class="fa fa-plus"></i></span>{{ $__('general.add_phone') }} </a>
+                            </h3>
+                            <hr class="m-t-0 m-b-40">
+                            <div class="row" v-for="phone in form.phones">
+                                <div class="col-md-3">
+                                    <div class="form-group row">
+                                        <label class="control-label text-right col-md-6">{{ $__('general.type') }} </label>
+                                        <div class="col-md-6">
+                                            <select class="form-control custom-select" v-model="phone.type">
+                                                <option value="mobile">{{ $__('general.mobile') }}</option>
+                                                <option value="home">{{ $__('general.phone_home') }}</option>
+                                                <option value="work">{{ $__('general.work') }}</option>
+                                                <option value="fax">{{ $__('general.fax') }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <div class="col-md-9">
+                                            <input :placeholder="$__('general.number')" class="form-control" type="text"
+                                                   v-model="phone.number">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <a @click.prevent="removePhone(phone.number)" class="text-right" href=""><span><i
+                                            class="fa fa-close text-danger"></i></span> {{ $__('general.remove') }} </a>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+
+                        </div>
+                        <hr>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-2 ">
+                                    <button @click="canceled" class="btn btn-inverse btn-block" type="button">{{ $__('general.cancel') }}
+                                    </button>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <button :disabled="!canSubmit" class="btn btn-info btn-block" type="submit">{{ $__('general.save') }}
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+     <add-insurance-card-modal></add-insurance-card-modal>
+        <add-image></add-image>
     </app-layout>
 </template>
 
@@ -173,17 +206,19 @@
     import InputEmail from '@/Jetstream/Form/Input/InputEmail'
     import InputError from "@/Jetstream/Form/Input/InputError";
     import InputPassword from "@/Jetstream/Form/Input/InputPassword";
-    import AddPhone from "@/Jetstream/AddPhone";
+    import AddPhone from "@/Jetstream/Tenants/General/AddPhone";
     import ButtonSuccess from "@/Jetstream/Form/Button/ButtonSuccess";
     import ButtonDanger from "@/Jetstream/Form/Button/ButtonDanger";
+    import AddImage from "@/Jetstream/Tenants/General/addImage";
+    import AddInsuranceCardModal from "@/Jetstream/Tenants/Medical/Insurance/AddInsuranceCardModal";
 
     export default {
         props: {
             errors: Object,
-            roles: Array,
-
         },
         components: {
+            AddInsuranceCardModal,
+            AddImage,
             ButtonSuccess,
             ButtonDanger,
             InputPassword,
@@ -195,35 +230,126 @@
             FormLabel,
             AddPhone,
         },
+
         data() {
             return {
-                form: {
-                    name: null,
-                    username: null,
-                    email: null,
-                    password: null,
-                    password_confirmation: null,
-                    role: {id: '', name: ''},
-                    medical_id: '',
-                    position: '',
-                    speciality: '',
+                flag: 'patientCreate',
+                imageButtonText: 'add_image',
+                posting: false,
+                companies: '',
+                form: this.$inertia.form({
+                    name: '',
+                    profile_image: '',
                     address: '',
-                    phones: [],
-                },
+                    birth_date: '',
+                    gender: '',
+                    email: '',
+                    payment: '',
+                    phones: [{type: '', number: ''}],
+                    insurance: {
+                        card_id: '',
+                        insurance_no: '',
+                        insurance_company_id: '',
+                        effective: '',
+                        expiry: '',
+                        deductible: '',
+                        co_ins: '',
+                        job_company: '',
+                        policy_holder: '',
+                        network: '',
+                        category: '',
+                        dental: '',
+                        image: '',
+                    },
+                }),
             }
+        },
+        computed: {
+
+            url: function () {
+                return "/patients"
+            },
+
+            canSubmit: function () {
+                return true;
+                if (this.posting) {
+                    return false;
+                }
+
+                if (this.form.name.trim() === '') {
+                    return false;
+                }
+                if (!this.form.gender) {
+                    return false;
+                }
+                if (!this.form.birth_date) {
+                    return false;
+                }
+
+                if (this.form.errors) {
+                    return false;
+                }
+
+                return true;
+            }
+
         },
         methods: {
+
             submit() {
-                this.$inertia.post('/users', this.form)
+                this.posting = true;
+                this.form.post(this.url)
+                    .then(response => {
+                        window.location.href = "/patients";
+                    })
+                    .catch(error => {
+                        this.posting = false;
+                    })
             },
-            deletPHone(number) {
-                let index = this.form.phones.findIndex(phone => parseInt(phone.number) === parseInt(number));
-                this.form.phones.splice(index, 1);
-            }
+
+            canceled() {
+                window.location.href = "/reception";
+            },
+
+            setImage() {
+                this.$modal.show('add-image', {flag: this.flag})
+            },
+
+
+            addPhone() {
+                this.form.phones.push({});
+            },
+
+            removePhone(number) {
+                this.removeValueFromArray(number, this.form.phones);
+            },
+
+            removeValueFromArray(value, array) {
+                return array.splice(array.findIndex(function (el) {
+                    return value === el.number
+                }), 1)
+            },
+
+            setInsuranceImage() {
+                this.$modal.show('add-insurance-card-modal', {insuranceCompanies: this.companies})
+            },
+
+
         },
 
-        created() {
-            Bus.$on('phone-added', (data) => this.form.phones.push(data));
+        mounted: function () {
+            Bus.$on('card-added', (card) => {
+                this.form.insurance = card
+            });
+
+            Bus.$on('image-added', (obj) => {
+                if (obj.flag === this.flag) {
+                    this.form.profile_image = obj.image;
+                    this.imageButtonText = "change_image";
+                }
+            });
+
         }
+
     }
 </script>

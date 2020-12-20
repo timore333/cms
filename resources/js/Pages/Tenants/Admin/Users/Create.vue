@@ -173,7 +173,7 @@
     import InputEmail from '@/Jetstream/Form/Input/InputEmail'
     import InputError from "@/Jetstream/Form/Input/InputError";
     import InputPassword from "@/Jetstream/Form/Input/InputPassword";
-    import AddPhone from "@/Jetstream/AddPhone";
+    import AddPhone from "@/Jetstream/Tenants/General/AddPhone";
     import ButtonSuccess from "@/Jetstream/Form/Button/ButtonSuccess";
     import ButtonDanger from "@/Jetstream/Form/Button/ButtonDanger";
 

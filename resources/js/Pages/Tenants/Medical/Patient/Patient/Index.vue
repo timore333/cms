@@ -1,90 +1,99 @@
 <template>
     <app-layout>
-
-        <div class="container m-t-30">
+        <div class="container m-t-40">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-header">
-                        <h4 class="card-title"> {{$__('general.all_patients')}}
-                            <inertia-link class="btn btn-success d-none d-lg-block pull-right" href="/patients/create"
-                                          method="get">
-                                <i class="fa fa-plus-circle"></i> {{$__('general.new_patient')}}
-                            </inertia-link>
-                        </h4>
-
+                    <div id="patients-toolbar">
+                        <a class="btn btn-info" href="/patients/create" v-if="can.create_patients">create new</a>
                     </div>
-
-
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered">
-                            <thead>
-                            <tr>
-                                <th>{{$__('general.id')}}</th>
-                                <th>{{$__('general.name')}}</th>
-                                <th>{{$__('general.gender')}}</th>
-                                <th>{{$__('general.email')}}</th>
-                                <th>{{$__('general.address')}}</th>
-                                <th>{{$__('general.phones')}}</th>
-                                <th>{{$__('general.action')}}</th>
-                            </tr>
-
-                            </thead>
-                            <tbody>
-
-                            <tr v-for="user in users">
-                                <td>{{user.id}}</td>
-                                <td>{{ user.name }}</td>
-                                <td>{{ user.username }}</td>
-                                <td>
-                                   <template v-if="user.phones.length > 0">
-                                       <ul class="m-b-0 p-l-0" style="list-style-type: none">
-                                           <li v-for="phone in user.phones">{{phone.type}}: {{phone.number}}</li>
-                                       </ul>
-                                   </template>
-                                    <template v-else>No phones </template>
-                                </td>
-                                <td>{{ user.role }}</td>
-                                <td>
-
-                                    <inertia-link :href="editUrl( user.id)" class="btn btn-outline-success btn-xs"
-                                                  method="get">
-                                        <span class="fa fa-edit"></span>
-                                    </inertia-link>
-
-                                    <!--  <delete-button default_model='{{user}}' model_class='user' button_class="btn btn-outline-danger btn-xs"><i class="fa fa-trash"></i></delete-button>-->
-                                </td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-
-                    </div>
+                    <bootstrap-table
+                            :columns="Columns"
+                            :data="patients"
+                            :options="options"
+                    />
                 </div>
             </div>
-        </div>
 
+
+        </div>
 
     </app-layout>
 
 </template>
 
 <script>
+    import BootstrapTable from 'bootstrap-table/dist/bootstrap-table-vue.min.js'
     import AppLayout from "@/Layouts/AppLayout";
 
     export default {
-        components: {AppLayout},
+        components: {AppLayout, BootstrapTable},
         props: {
-            users: Array,
+            patients: Array,
             can: Object,
         },
+        data() {
+            return {
+                options: {
+                    search: true,
+                    pagination: true,
+                    showCoulumns: true,
+                    showExport: true,
+                    showPrint: true,
+                    filterControl: true,
+                    pageList: "[10, 25, 50, 100, 200, All]",
+                    exportDataType: 'all',
+                    exportTypes: ['csv', 'excel', 'xlsx', 'pdf'],
+                    toolbar: '#patients-toolbar'
+                },
+                Columns: [
+                    {
+                        'field': 'id',
+                        'title': 'ID',
+                        'sortable': true,
+                        'filterControl': 'input',
+                        'width': '80px',
+                        'align': 'center'
+                    },
+                    {'field': 'name', 'title': 'Name', 'sortable': true, 'filterControl': 'input'},
+                    {'field': 'address', 'title': 'Address', 'sortable': true, 'filterControl': 'input'},
+                    {'field': 'email', 'title': 'Email', 'sortable': true, 'filterControl': 'input'},
+                    {
+                        field: 'phones', title: 'Phones', sortable: true, filterControl: 'input',
+                        formatter: (value, row) => {
+                            return this.phoneFormatter(value, row)
+                        },
+                    },
+                    {
+                        field: 'view', title: 'Patient file', align: 'center', width: '100px',
+                        formatter:
+                            '<button class="btn btn-success btn-xs show"><i class="fa fa-eye"></i></button>',
+                        events: {
+                            'click .show': (e, value, row) => {
+                                window.location.assign('/patients/' + row.id)
+                            },
+                        }
+                    },
+                ],
+
+
+            }
+        },
+
+        computed: {},
+
+
         methods: {
-
-            editUrl(id) {
-                return '/users/' + id +'/edit';
+            phoneFormatter(value, row) {
+                let phones = row.phones;
+                let string = '';
+                string = phones.map((el) => {
+                    return `<li><b>Type:</b>   ${el.type}  <br><b>Number:</b>  ${el.number}  </li>`
+                });
+                return '<ul>' + string.join('') + '</ul>';
             },
-
 
         },
 
-    };
+
+    }
 </script>

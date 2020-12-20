@@ -171,7 +171,7 @@
 
 <script>
     import AppLayout from '@/Layouts/AppLayout'
-    import AddPhone from '@/Jetstream/AddPhone'
+    import AddPhone from '@/Jetstream/Tenants/General/AddPhone'
     import ButtonSuccess from '@/Jetstream/Form/Button/ButtonSuccess'
     import FormGroup from '@/Jetstream/Form/FormGroup'
     import InputText from "@/Jetstream/Form/Input/InputText";

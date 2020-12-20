@@ -1,19 +1,19 @@
 <?php
 
 namespace App\Models\Tenants\Medical\Patient;
+use App\Traits\General\Photoable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Tooth extends Model
 {
-    use HasFactory;
+    use HasFactory, Photoable;
 
     public $timestamps = false;
     protected $fillable = ['name', 'number', 'side', 'type', 'uns_number', 'patient_id'];
     protected $with = ['surfaces', 'photos'];
     protected $appends = ['finding'];
-    //    use photoable;
 
     const PERMANENT_TEETH = [
         1 => 'central incisor',

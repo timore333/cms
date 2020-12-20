@@ -9,5 +9,6 @@
     "/css/multi-select.css": "/css/multi-select.css",
     "/js/main.js": "/js/main.js",
     "/js/jquery.js": "/js/jquery.js",
-    "/js/multi-select.js": "/js/multi-select.js"
+    "/js/multi-select.js": "/js/multi-select.js",
+    "/js/datatable.js": "/js/datatable.js"
 }

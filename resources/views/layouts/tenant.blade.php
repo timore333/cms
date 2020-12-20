@@ -2,7 +2,7 @@
 
 <body class="{{$skin}} fixed-layout">
 
-@include('layouts.partials.preloader')
+{{--@include('layouts.partials.preloader')--}}
 
 <div id="main-wrapper">
 

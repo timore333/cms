@@ -18,7 +18,7 @@ class CreatePhotosTable extends Migration
             $table->string('name');
             $table->string('url');
             $table->string('type')->nullable(); // x-ray, profile, dental, social , documents
-            $table->string('catigory')->nullable();
+            $table->string('category')->nullable();
             $table->string('description')->nullable();
             $table->morphs('photoable');
             $table->timestamps();
