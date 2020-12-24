@@ -2,10 +2,11 @@
 
 namespace App\Listeners\Tenants\Medical\Patients;
 
+use App\Models\Tenants\General\Calendar;
 use Carbon\Carbon;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Models\Setting\Calendar;
+
 class CheckForAppointment
 {
     /**

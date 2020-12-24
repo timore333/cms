@@ -2,7 +2,7 @@
 
 namespace App\Traits\General;
 
-use App\Models\Tenants\Setting\Phone;
+use App\Models\Tenants\General\Phone;
 
 trait Phoneable
 {

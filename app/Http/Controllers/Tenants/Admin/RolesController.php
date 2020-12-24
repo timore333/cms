@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Tenants\Admin;
 
 use App\Http\Controllers\Controller;
 
-use App\Http\Request\Admins\UpdateRoleRequest;
+use App\Http\Requests\Admin\UpdateRoleRequest;
 use App\Models\Tenants\Admin\Permission;
 use App\Models\Tenants\Admin\Role;
 use Illuminate\Http\RedirectResponse;

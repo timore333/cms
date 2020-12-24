@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Tenants\Setting\Setting;
+use App\Models\Tenants\General\Setting;
 use Closure;
 use Illuminate\Http\Request;
 

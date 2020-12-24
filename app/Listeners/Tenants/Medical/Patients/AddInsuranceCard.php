@@ -2,7 +2,6 @@
 
 namespace App\Listeners\Tenants\Medical\Patients;
 
-use App\Models\Medical\Patient;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

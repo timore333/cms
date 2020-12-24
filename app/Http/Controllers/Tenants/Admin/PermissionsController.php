@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Tenants\Admin;
 
 
-use App\Models\Admin\Permission;
+use App\Models\Tenants\Admin\Permission;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class PermissionsController extends Controller
 {
@@ -19,7 +21,7 @@ class PermissionsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -32,7 +34,7 @@ class PermissionsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -43,8 +45,8 @@ class PermissionsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -60,8 +62,8 @@ class PermissionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Admin\Permission  $permission
-     * @return \Illuminate\Http\Response
+     * @param Permission $permission
+     * @return Response
      */
     public function edit(Permission $permission)
     {
@@ -71,9 +73,9 @@ class PermissionsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin\Permission  $permission
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Permission $permission
+     * @return void
      */
     public function update(Request $request, Permission $permission)
     {
@@ -87,8 +89,9 @@ class PermissionsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Admin\Permission  $permission
-     * @return \Illuminate\Http\Response
+     * @param Permission $permission
+     * @return void
+     * @throws Exception
      */
     public function destroy(Permission $permission)
     {

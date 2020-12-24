@@ -2,7 +2,7 @@
 
 namespace App\Events\Tenants\Meical\Patients;
 
-use App\Models\Tenants\Medical\Patient\Patient;
+use App\Models\Tenants\Client\Patient\Patient;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;

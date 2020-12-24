@@ -4,7 +4,7 @@ namespace App\Traits\General;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Models\Tenants\Setting\Photo;
+use App\Models\Tenants\General\Photo;
 use Intervention\Image\Image;
 
 trait Photoable

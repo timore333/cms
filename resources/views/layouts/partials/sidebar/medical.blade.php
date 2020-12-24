@@ -7,15 +7,11 @@
         </a>
         <ul aria-expanded="false" class="collapse">
                     <li><a href="{{route('patients.index')}}">@lang('general.patients') <i class="fa fa-wheelchair "></i></a></li>
-            {{--        <li><a href="{{route('drugs.index')}}">@lang('thnaya.left_side_bar.medical.drugs') <i class="fa fa-flask "></i></a></li>--}}
-            {{--        <li><a href="{{route('insurance-companies.index')}}">@lang('thnaya.left_side_bar.medical.insurance') <i class="fa fa-building "></i></a></li>--}}
-            {{--        <li><a href="{{route('procedures.index')}}">@lang('thnaya.left_side_bar.medical.procedures') <i class="fa fa-chain "></i></a></li>--}}
-            {{--        <li><a href="{{route('labs.index')}}">@lang('thnaya.left_side_bar.medical.lab') <i class="fa fa-thermometer-0 "></i></a></li>--}}
+                    <li><a href="{{route('drugs.index')}}">@lang('general.drugs') <i class="fa fa-flask "></i></a></li>
+                    <li><a href="{{route('companies.index')}}">@lang('general.insurance') <i class="fa fa-building "></i></a></li>
+                    <li><a href="{{route('procedures.index')}}">@lang('general.procedures') <i class="fa fa-chain "></i></a></li>
+                    <li><a href="{{route('labs.index')}}">@lang('general.lab') <i class="fa fa-thermometer-0 "></i></a></li>
 
-            <li><a href="#">@lang('general.drugs') <i class="fa fa-flask "></i></a></li>
-            <li><a href="#">@lang('general.insurance') <i class="fa fa-building "></i></a></li>
-            <li><a href="#">@lang('general.procedures') <i class="fa fa-chain "></i></a></li>
-            <li><a href="#">@lang('general.lab') <i class="fa fa-thermometer-0 "></i></a></li>
         </ul>
     </li>
 @endif

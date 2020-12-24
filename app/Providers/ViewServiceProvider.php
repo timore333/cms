@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Tenants\Setting\Setting;
+use App\Models\Tenants\General\Setting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
