@@ -17,6 +17,8 @@ import {__, trans, setLocale, getLocale, transChoice, MaticeLocalizationConfig, 
 import NProgress from 'nprogress';
 import {Inertia} from '@inertiajs/inertia';
 import VModal from 'vue-js-modal';
+import VueKonva from 'vue-konva';
+
 
 Vue.mixin({
     methods: {
@@ -54,6 +56,7 @@ Vue.use(InertiaApp);
 Vue.use(InertiaForm);
 Vue.use(PortalVue);
 Vue.use(VModal, {dialog: true});
+Vue.use(VueKonva);
 window.Bus = new Vue();
 Vue.prototype.$route = (...args) => route(...args).url();
 
