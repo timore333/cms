@@ -11,11 +11,11 @@ height='auto'
 
 <div class="card m-0">
     <div class="card-body">
-        <h3 class="card-title">Add Image <a href="#" class="pull-right" @click="hide()">X</a href="#"></h3>
-        <p class="card-text">press select and choose an image the click add button</p>
+        <h3 class="card-title">{{$__('general.add_image')}}<a href="#" class="pull-right" @click="hide()">X</a href="#"></h3>
+        <p class="card-text">{{$__('messages.select_image')}}</p>
 
-        <div class="form-group row">
-            <label class="control-label text-right col-md-3">Image</label>
+    <div class="form-group row">
+            <label class="control-label text-right col-md-3">{{$__('general.image')}}</label>
             <div class="form-group col-md-9 ">
                 <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                     <div class="form-control m-r-5" data-trigger="fileinput"> <i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span>
@@ -25,7 +25,7 @@ height='auto'
             </div>
         </div>
 
-            <a href="" class="btn btn-primary btn-block" @click.prevent="addImage">Add</a>
+            <a href="" class="btn btn-primary btn-block" @click.prevent="addImage">{{$__('general.add')}}</a>
 
     </div>
 </div>

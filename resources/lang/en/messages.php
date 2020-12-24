@@ -23,5 +23,6 @@ return [
     'update_username_and_email' => 'Update your username and email.',
     'password_description' => 'Ensure your account is using a long, random password to stay secure.',
     'manage_logout_subtitle' => '  Manage and logout your active sessions on other browsers and devices.',
+    'select_image' => 'press select and choose an image the click add button.',
 
 ];

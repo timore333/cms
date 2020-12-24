@@ -8,6 +8,7 @@ use App\Http\Requests\Medical\Patient\UpdatePatientRequest;
 use App\Models\Tenants\Medical\Insurance\Company;
 use App\Models\Tenants\Medical\Patient\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class PatientsController extends Controller
@@ -43,11 +44,12 @@ class PatientsController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CreatePatientRequest $request
-     * @return void
+     * @return
      */
     public function store(CreatePatientRequest $request)
     {
         $request->update();
+        return Redirect::route('patients.index');
     }
 
     /**

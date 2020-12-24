@@ -44,6 +44,7 @@ return [
     'image'=>'Image',
     'add_image'=>'Add Image',
     'change_image'=>'Change Image',
+    'profile_image'=>'Profile Image',
 
     'calendar' => 'Calendar',
     'appointments' => 'Appointments',
