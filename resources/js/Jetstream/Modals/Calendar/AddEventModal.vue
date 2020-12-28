@@ -1,30 +1,30 @@
 <template>
     <modal
-            name="add-event-modal"
             :adaptive="true"
+            :draggable='true'
             :resizable="false"
-            :draggable = 'true'
             :scrollable="true"
-            height='auto'
             @before-open="beforeOpen"
+            height='auto'
+            name="add-event-modal"
 
     >
         <div class="card border-info" style="width:100%;height:100%;margin:0">
             <div class="card-header bg-info">
-                <h4 class="m-b-0 text-white">{{ trans.get('general.new_appointment') }}<a href="#" class="pull-right text-white"
-                                                                   @click="hide()">X</a></h4>
+                <h4 class="m-b-0 text-white">{{ $__('general.new_appointment') }}<a @click="hide()" class="pull-right text-white"
+                                                                                    href="#">X</a></h4>
             </div>
 
             <div class="card-body">
                 <div class="row m-t-20">
                     <div class="col-6">
-                        <button :disabled="newPatient" class="btn btn-block btn-outline-success" @click="isNew(true)">
-                            {{ trans.get('general.new_patient') }}
+                        <button :disabled="newPatient" @click="isNew(true)" class="btn btn-block btn-outline-success">
+                            {{ $__('general.new_patient') }}
                         </button>
                     </div>
                     <div class="col-6">
-                        <button :disabled="!newPatient" class="btn btn-block btn-outline-success" @click="isNew(false)">
-                            {{ trans.get('general.old_patient') }}
+                        <button :disabled="!newPatient" @click="isNew(false)" class="btn btn-block btn-outline-success">
+                            {{ $__('general.old_patient') }}
                         </button>
                     </div>
 
@@ -34,74 +34,74 @@
 
 
                     <template v-if="!this.newPatient">
-                        <div class="form-group col-md-6 m-t-20" :class="{'has-danger':this.errors.patient}">
-                            <label>{{ trans.get('general.patient') }}</label>
-                            <select class="form-control " name="" id="patient" v-model="patient"
-                                    @change="reset('patient')">
+                        <div :class="{'has-danger':this.errors.patient}" class="form-group col-md-6 m-t-20">
+                            <label>{{ $__('general.patient') }}</label>
+                            <select @change="reset('patient')" class="form-control " id="patient" name=""
+                                    v-model="patient">
                                 <option :value="patient" v-for="patient in patients">{{patient.name}}</option>
                             </select>
 
-                            <label class="form-control-label" for="patient" v-if="this.errors.patient"> {{ trans.get('messages.invalid_name') }}</label>
+                            <label class="form-control-label" for="patient" v-if="this.errors.patient"> {{ $__('messages.invalid_name') }}</label>
                         </div>
 
                     </template>
                     <template v-if="this.newPatient">
-                        <div class="form-group col-md-6 m-t-20" :class="{'has-danger':this.errors.patient}">
-                            <label> {{ trans.get('general.patient_name') }}</label>
+                        <div :class="{'has-danger':this.errors.patient}" class="form-group col-md-6 m-t-20">
+                            <label> {{ $__('general.patient_name') }}</label>
                             <input
+                                    :class="{'form-control-danger':this.errors.patient}"
+                                    @blur="validate('patient')"
+                                    class="form-control "
                                     id="patientName"
                                     type="text"
-                                    class="form-control "
-                                    :class="{'form-control-danger':this.errors.patient}"
                                     v-model="patient"
-                                    @blur="validate('patient')"
                             >
 
-                            <label class="form-control-label" for="patientName" v-if="this.errors.patient"> {{ trans.get('messages.invalid_name') }}</label>
+                            <label class="form-control-label" for="patientName" v-if="this.errors.patient"> {{ $__('messages.invalid_name') }}</label>
                         </div>
 
-                        <div class="form-group col-md-6 m-t-20" :class="{'has-danger':this.errors.phone}">
-                            <label> {{ trans.get('general.phone') }}</label>
+                        <div :class="{'has-danger':this.errors.phone}" class="form-group col-md-6 m-t-20">
+                            <label> {{ $__('general.phone') }}</label>
                             <input
+                                    :class="{'form-control-danger':this.errors.phone}"
+                                    @blur="validatePhone()"
+                                    class="form-control "
                                     id="phone"
                                     type="text"
-                                    class="form-control "
-                                    :class="{'form-control-danger':this.errors.phone}"
                                     v-model="phone"
-                                    @blur="validatePhone()"
                             >
-                            <label class="form-control-label" for="phone" v-if="this.errors.phone"> {{ trans.get('messages.invalid_phone') }}</label>
+                            <label class="form-control-label" for="phone" v-if="this.errors.phone"> {{ $__('messages.invalid_phone') }}</label>
                         </div>
 
                     </template>
-                    <div class="form-group col-md-6 m-t-20" :class="{'has-danger':this.errors.doctor}">
+                    <div :class="{'has-danger':this.errors.doctor}" class="form-group col-md-6 m-t-20">
                         <label>Doctor</label>
                         <select
-                                class="form-control"
                                 :class="{'form-control-danger':this.errors.doctor}"
-                                v-model="doctor"
-                                id="doctor"
                                 @change="reset('doctor')"
+                                class="form-control"
+                                id="doctor"
+                                v-model="doctor"
                         >
                             <template v-for="doctor in doctors">
-                                <option v-if="doctor.name" :value="doctor">{{doctor.name}}</option>
+                                <option :value="doctor" v-if="doctor.name">{{doctor.name}}</option>
                             </template>
 
                         </select>
-                        <label class="form-control-label" for="doctor" v-if="this.errors.doctor"> {{ trans.get('messages.invalid_doctor') }}</label>
+                        <label class="form-control-label" for="doctor" v-if="this.errors.doctor"> {{ $__('messages.invalid_doctor') }}</label>
                     </div>
 
-                    <div class="form-group col-md-6 m-t-20" :class="{'has-danger':this.errors.color}">
-                        <label>{{ trans.get('general.color') }}</label>
-                        <select id="color" class="form-control" v-model="color"
-                                :class="{'form-control-danger':this.errors.phone}" @change="reset('color')">
-                            <option v-for="color in colors" :value="color.value" :style="{color:color.value}">{{color.color}}</option>
+                    <div :class="{'has-danger':this.errors.color}" class="form-group col-md-6 m-t-20">
+                        <label>{{ $__('general.color') }}</label>
+                        <select :class="{'form-control-danger':this.errors.phone}" @change="reset('color')" class="form-control"
+                                id="color" v-model="color">
+                            <option :style="{color:color.value}" :value="color.value" v-for="color in colors">{{color.color}}</option>
                         </select>
-                        <label class="form-control-label" for="color" v-if="this.errors.color">{{ trans.get('messages.invalid_color') }} </label>
+                        <label class="form-control-label" for="color" v-if="this.errors.color">{{ $__('messages.invalid_color') }} </label>
                     </div>
 
                     <div class="form-group col-md-6 m-t-20">
-                        <button class="btn btn-info" :disabled="!canSubmit" @click.prevent="saveEvent">{{ trans.get('general.save') }}</button>
+                        <button :disabled="!canSubmit" @click.prevent="saveEvent" class="btn btn-info">{{ $__('general.save') }}</button>
                     </div>
 
                 </form>
@@ -112,12 +112,11 @@
 
 <script>
     import * as moment from 'moment';
-    import {mapGetters, mapActions} from 'Vuex'
+
 
     export default {
 
         // /////////////////////
-
         data() {
             return {
                 newPatient: true,
@@ -133,7 +132,20 @@
                     patient: false,
                     doctor: false,
                     color: false
-                }
+                },
+                colors: [
+                    // {color: 'yellow', value: '#DABC2B'},
+                    {color: 'yellow', value: '#BCD132'},
+                    {color: 'red', value: '#9d3133'},
+                    // {color: 'red', value: '#dd3333'},
+                    // {color: 'violet', value: '#D13295'},
+                    {color: 'violet', value: '#800080'},
+                    {color: 'teal', value: '#468499'},
+                    {color: 'blue', value: '#00ddff'},
+                    // {color: 'pink', value: '#ff9999'},
+                    {color: 'green', value: '#00a86b'},
+                ],
+                doctors: [],
 
             }
         },
@@ -141,7 +153,7 @@
         // //////////////////////
 
         methods: {
-            ...mapActions(['addEvent']),
+
 
             show() {
                 this.$modal.show('add-event-modal');
@@ -167,6 +179,9 @@
                 this.start = obj.startStr;
                 this.end = obj.endStr;
                 this.allDay = obj.allDay;
+                _.forEach(event.params.doctors,  (value)=> {
+                    this.doctors.push(value);
+                });
             },
 
             isNew($key) {
@@ -184,18 +199,22 @@
             },
 
             saveEvent() {
-                if (!this.doctor) {
-                    this.errors.doctor = true;
-                    return false
-                }
-
-                if (!this.color) {
-                    this.errors.color = true;
-                    return false
-                }
+                // if (!this.doctor) {
+                //     this.errors.doctor = true;
+                //     return false
+                // }
+                //
+                // if (!this.color) {
+                //     this.errors.color = true;
+                //     return false
+                // }
                 this.addEvent(this.event);
                 this.hide();
                 this.reset();
+            },
+
+            addEvent(event) {
+                Bus.$emit('event-added', event);
             },
 
             reset(key = null) {
@@ -205,9 +224,9 @@
                     this.start = '';
                     this.end = '';
                     this.doctor = '';
+                    this.doctors = [];
                     this.patient = '';
                     this.phone = '';
-                    this.color = '';
                     this.allDay = '';
                     this.errors = {
                         phone: false,
@@ -223,7 +242,7 @@
         // //////////////////////
 
         computed: {
-            ...mapGetters(['patients', 'doctors','colors']),
+
             event() {
                 return {
                     start: this.start,

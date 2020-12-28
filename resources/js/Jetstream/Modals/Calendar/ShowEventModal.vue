@@ -1,40 +1,30 @@
 <template>
     <modal
-            name="show-event-modal"
             :adaptive="true"
+            :draggable="true"
             :resizable="false"
             :scrollable="true"
-            :draggable="true"
-            height='auto'
-            width='300'
             @before-open="beforeOpen"
-
+            height='auto'
+            name="show-event-modal"
+            width='300'
     >
 
-        <div class="card text-white bg-inverse m-0 text-right">
+        <div class="card m-0 text-right">
             <div class="card-header bg-info">
-                <h4 class="m-b-0 text-white">{{ start}}<a href="#" class="pull-left text-white"
-                                                          @click="hide()">X</a href="#"></h4>
+                <h4 class="m-b-0 text-white">{{ start}}<a @click="hide()" class="pull-left text-white" href="#">X</a></h4>
             </div>
             <div class="card-body">
-                <!--         <h3 class="card-title">{{ title }}</h3> -->
-
-                <div class="card-text text-success">
-                <h4 class="text-muted">{{ patientName }} &nbsp &nbsp &nbsp<span class="fa fa-address-card"></span></h4>
-                <h4 class="text-muted" v-if="patient.isNew">{{ phone }} &nbsp &nbsp &nbsp<span
-                        class="fa  fa-phone-square"></span></h4>
-                <h4 class="text-muted" v-if="!patient.isNew">{{ patientId }} &nbsp &nbsp &nbsp<span
-                        class="fa  fa-folder-open-o"></span></h4>
-                <h4 class="text-muted">{{ doctor.name }} &nbsp &nbsp &nbsp<span class="fa fa-user-md"></span></h4>
+                <div class="card-text text-left">
+                    <h4 ><span class="fa fa-address-card"></span>&nbsp {{ patientName }}</h4>
+                    <h4  v-if="patient.isNew"><span class="fa  fa-phone-square"></span> &nbsp{{ phone }}</h4>
+                    <h4  v-if="!patient.isNew"><span class="fa  fa-folder-open-o"></span> &nbsp {{ patientId }}</h4>
+                    <h4 ><span class="fa fa-user-md"></span>&nbsp {{ doctor.name }}</h4>
                 </div>
-                <a href="#" class="text-success pull-left" @click.prevent="editEvent">
-                    <span class="fa fa-pencil-square "></span> Edit
-                </a>
-                <a href="#" class="text-danger  pull-left m-l-10" @click.prevent="deleteEvent">
-                    <span class="fa fa-trash"></span> Delete
-                </a>
-
-
+                <div class="text-center">
+                    <a @click.prevent="editEvent" class="text-success" href="#"><span class="fa fa-pencil-square "></span> {{$__('general.edit')}}</a>
+                    <a @click.prevent="deleteEvent" class="text-danger m-l-10" href="#"><span class="fa fa-trash"></span> {{$__('general.delete')}}</a>
+                </div>
             </div>
         </div>
 
@@ -44,7 +34,7 @@
 
 <script>
     import * as moment from 'moment';
-    import {mapGetters, mapActions} from 'Vuex'
+    import {trans} from "matice";
 
     export default {
 
@@ -67,8 +57,6 @@
 
         methods: {
 
-            ...mapActions(['removeEvent']),
-
             show() {
                 this.$modal.show('show-event-modal');
             },
@@ -81,8 +69,8 @@
                 let obj = event.params.event;
                 let patient = obj.extendedProps.patient;
                 this.start = moment(obj.start).format('llll');
-                this.phone = patient.isNew? patient.phone: 'Patient File';
-                this.patientName = patient.isNew? patient.patient: patient.patient.name;
+                this.phone = patient.isNew ? patient.phone : 'Patient File';
+                this.patientName = patient.isNew ? patient.patient : patient.patient.name;
                 this.doctor = obj.extendedProps.doctor;
                 this.title = obj.title;
                 this.patient = obj.extendedProps.patient;
@@ -94,22 +82,30 @@
                 this.hide()
             },
 
+            removeEvent(id) {
+                Bus.$emit('event-removed',id);
+            },
             deleteEvent() {
-                swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover !",
+                swal.fire({
+                    titleText: trans('messages.are_you_sure'),
+                    text: trans('messages.confirm_delete'),
                     icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                }).then((willDelete) => {
-                    if (willDelete) {
+                    showCancelButton: true
+                }).then((response) => {
+                    if (response.isConfirmed) {
                         this.removeEvent(this.rawEvent.id);
                         this.hide();
-                        swal("Poof! Your appointment has been deleted!", {
+                        swal.fire({
+                            titleText: trans("messages.appointment_deleted"),
                             icon: "success",
+                            iconColor: '#A84343',
                         });
                     } else {
-                        swal("Your appointment is safe!");
+                        this.hide();
+                        swal.fire({
+                            titleText: trans("messages.appointment_not_deleted"),
+                            icon: 'success'
+                        });
                     }
                 });
             },

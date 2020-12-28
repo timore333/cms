@@ -27,6 +27,7 @@ mix.js('resources/js/app.js', 'public/js')
         'resources/theme/pages/login-register-lock.css',
     ], 'public/css/pages/login.css')
 
+
     // multi select styles
     .styles([
         'resources/theme/assets/node_modules/multiselect/css/multi-select.css',

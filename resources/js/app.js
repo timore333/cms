@@ -18,6 +18,7 @@ import NProgress from 'nprogress';
 import {Inertia} from '@inertiajs/inertia';
 import VModal from 'vue-js-modal';
 import VueKonva from 'vue-konva';
+import Swal from 'sweetalert2'
 
 
 Vue.mixin({
@@ -58,6 +59,7 @@ Vue.use(PortalVue);
 Vue.use(VModal, {dialog: true});
 Vue.use(VueKonva);
 window.Bus = new Vue();
+window.swal = Swal;
 Vue.prototype.$route = (...args) => route(...args).url();
 
 const app = document.getElementById('app');

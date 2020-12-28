@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Tenants\General;
 
+use App\Events\Tenants\General\Calendar\AppointmentCreated;
+use App\Events\Tenants\General\Calendar\AppointmentDeleted;
 use App\Http\Controllers\Controller;
+use App\Models\Tenants\Admin\User;
 use App\Models\Tenants\General\Calendar;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Inertia\Inertia;
 
 class CalendarController extends Controller
 {
@@ -16,7 +22,16 @@ class CalendarController extends Controller
      */
     public function calendar()
     {
-        return view('setting.calendar.show');
+        $events = [];
+        foreach(Calendar::get() as $event){
+            $event->title = 'title';
+            array_push($events,$event);
+        }
+        return Inertia::render('Tenants/General/Calendar', [
+            'events' => fn() => $events,
+            'doctors'=> fn()=>User::role('doctor')->get()
+        ])->withViewData(['title' => __('general.calendar')]);
+
     }
 
 
@@ -50,7 +65,7 @@ class CalendarController extends Controller
         $event->save();
 
         event(new AppointmentCreated($event));
-        return new $event;
+//        return new $event;
     }
 
     /**
@@ -108,14 +123,14 @@ class CalendarController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Calendar $calendar
+     * @param $id
      * @return void
-     * @throws \Exception
      */
-    public function destroy(Calendar $calendar)
+    public function destroy($id)
     {
-        $calendar->delete();
-        event(new AppointmentDeleted($calendar));
+        $appointment = Calendar::find($id);
+        $appointment->delete();
+        event(new AppointmentDeleted($appointment));
     }
 
 
@@ -161,5 +176,6 @@ class CalendarController extends Controller
         $event->status = $request->status;
         $event->update();
     }
+
 
 }

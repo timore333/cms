@@ -3,6 +3,9 @@
 return [
 
     'are_you_sure' => 'Are you sure ?',
+    'confirm_delete' => 'Once deleted, you will not be able to recover !',
+    'appointment_deleted' => 'Poof! Your appointment has been deleted!',
+    'appointment_not_deleted' => 'Your appointment is safe!"',
     'no_permissions' => 'There is no permission assigned to this role',
     'permission_updated' => 'Permission Updated',
     'user_deleted' => 'User Deleted',
