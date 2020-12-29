@@ -19,14 +19,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('procedures', \App\Http\Controllers\Tenants\Operation\ProceduresController::class);
     Route::resource('labs', \App\Http\Controllers\Tenants\Supplier\Lab\LabsController::class);
 
+    Route::resource('/setting', SettingController::class);
+    Route::get('calendar', [\App\Http\Controllers\Tenants\General\CalendarController::class, 'calendar'])->name('calendar');
+    Route::post('calendar', [\App\Http\Controllers\Tenants\General\CalendarController::class, 'store'])->name('appointment.store');
+    Route::put('calendar/{id}', [\App\Http\Controllers\Tenants\General\CalendarController::class, 'update'])->name('appointment.update');
+    Route::delete('calendar/{id}', [\App\Http\Controllers\Tenants\General\CalendarController::class, 'destroy'])->name('appointment.delete');
 
 });
 
-Route::get('/test',function(){
-//Setting::create(['name'=>'locale', 'value'=>'en']);
+Route::get('/test', function() {
+    //Setting::create(['name'=>'locale', 'value'=>'en']);
 });
 
-Route::resource('/setting',SettingController::class);
- Route::get('calendar', [\App\Http\Controllers\Tenants\General\CalendarController::class, 'calendar'])->name('calendar');
- Route::post('calendar', [\App\Http\Controllers\Tenants\General\CalendarController::class, 'store'])->name('appointment.store');
- Route::delete('calendar/{id}', [\App\Http\Controllers\Tenants\General\CalendarController::class, 'destroy'])->name('appointment.delete');

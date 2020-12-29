@@ -3,6 +3,8 @@
         <FullCalendar :options="calendarOptions"/>
         <add-event-modal></add-event-modal>
         <show-event-modal></show-event-modal>
+        <edit-event-modal></edit-event-modal>
+        <calendar-setting-modal></calendar-setting-modal>
     </div>
 </template>
 
@@ -13,16 +15,22 @@
     import timeGridPlugin from '@fullcalendar/timegrid';
     import interactionPlugin from '@fullcalendar/interaction';
     import bootstrapPlugin from '@fullcalendar/bootstrap';
+    import arLocale from '@fullcalendar/core/locales/ar';
+    import enLocale from '@fullcalendar/core/locales/en-au';
     import AddEventModal from '@/Jetstream/Modals/Calendar/AddEventModal'
     import ShowEventModal from '@/Jetstream/Modals/Calendar/ShowEventModal'
+    import EditEventModal from '@/Jetstream/Modals/Calendar/EditEventModal'
+    import CalendarSettingModal from '@/Jetstream/Modals/Calendar/CalendarSettingModal'
 
 
     export default {
-        props: ['events', 'doctors'],
+        props: ['events', 'doctors', 'patients', 'locale', 'slotDuration', 'slotMinTime', 'slotMaxTime'],
         components: {
             FullCalendar,
             AddEventModal,
             ShowEventModal,
+            EditEventModal,
+            CalendarSettingModal,
         },
 
         // /////////////////////
@@ -33,27 +41,39 @@
                     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, bootstrapPlugin],
                     themeSystem: 'bootstrap',
                     initialView: 'timeGridWeek',
+                    locale: this.locale === 'ar' ? arLocale : enLocale,
                     allDaySlot: false,
                     editable: true,
-                    // displayEventTime: true,
+                    displayEventTime: true,
                     events: this.events,
                     firstDay: "6",
                     selectable: true,
-                    // expandRows: true,
+                    expandRows: true,
                     dateClick: this.addEvent,
                     eventClick: this.handleEventClick,
-                    // eventDrop: this.handleEventResize,
-                    // eventResize: this.handleEventResize,
+                    eventDrop: this.handleEventResize,
+                    eventResize: this.handleEventResize,
                     select: this.addEvent,
                     eventContent: this.eventRender,
-                    slotDuration: '00:30',
-                    slotMinTime: '12:00:00',
-                    slotMaxTime: '24:00:00',
+                    slotDuration: this.slotDuration,
+                    slotMinTime: this.slotMinTime,
+                    slotMaxTime: this.slotMaxTime,
                     headerToolbar: {
                         start: 'title',
                         center: 'dayGridMonth timeGridWeek timeGridDay',
-                        end: 'prev today next'
+                        end: 'prev today next setting'
                     },
+                    customButtons: {
+                        setting: {
+                            click:  () => {
+                                  this.$modal.show('calendar-setting-modal', {setting:{slotDuration:this.slotDuration, slotMinTime:this.slotMinTime, slotMaxTime:this.slotMaxTime}})
+                            }
+                        }
+                    },
+                    bootstrapFontAwesome:{
+                        setting:'fa-cog'
+                    },
+
                 },
             }
         },
@@ -66,7 +86,7 @@
                 let patientData = data.patient;
                 let patientFile = patientData.isNew ? 'New Patient' : patientData.patient.id;
                 let name = patientData.isNew ? patientData.patient : patientData.patient.name;
-                let patientPhone = patientData.isNew ? patientData.phone : 'Patient File';
+                let patientPhone = patientData.isNew ? patientData.phone : ' ';
 
                 let phone = document.createElement('span');
                 let patient = document.createElement('span');
@@ -92,13 +112,18 @@
                 file.setAttribute('style', "width:100%; overflow:hidden");
                 file.appendChild(fileNumber);
 
-                let arrayOfDomNodes = [file, patient, phone, doctor];
-                return {domNodes: arrayOfDomNodes}
+                let arrayOfDomNodes = [file, patient, doctor];
 
+                if (patientData.isNew) {
+                    arrayOfDomNodes.push(phone);
+                }
+                ;
+
+                return {domNodes: arrayOfDomNodes}
             },
 
             addEvent(args) {
-                this.$modal.show('add-event-modal', {event: args, doctors: this.doctors})
+                this.$modal.show('add-event-modal', {event: args, doctors: this.doctors, patients: this.patients})
             },
 
             handleEventClick(args) {
@@ -113,15 +138,25 @@
             },
 
             removeEvent(id) {
-                let event = this.events.findIndex((event)=>{ return parseInt(event.id )=== parseInt(id)});
-                this.events.splice(event,1);
-                let url = '/calendar/' + id ;
+                let event = this.events.findIndex((event) => {
+                    return parseInt(event.id) === parseInt(id)
+                });
+                this.events.splice(event, 1);
+                let url = '/calendar/' + id;
                 axios.delete(url);
             },
 
             saveEvent(event) {
                 this.events.push(event);
                 axios.post('/calendar', event);
+            },
+
+            updateEvent(data) {
+                let url = '/calendar/' + data.id;
+                axios.put(url, data).then(resp => Window.location.reload());
+            },
+            updateSetting(data){
+                axios.post('setting',data).then(resp=>{ window.location.reload()})
             },
         },
 
@@ -132,7 +167,7 @@
 
         mounted() {
             Bus.$on('event-edit', (data) => {
-                // this.$modal.show('edit-event-modal', data)
+                this.$modal.show('edit-event-modal', {event: data, doctors: this.doctors, patients: this.patients})
             });
 
             Bus.$on('lab-order-clicked', (data) => {
@@ -144,6 +179,10 @@
 
             Bus.$on('event-removed', (data) => {
                 this.removeEvent(data);
+            });
+
+            Bus.$on('setting-updated', (data) => {
+                this.updateSetting(data);
             });
         },
 
@@ -157,14 +196,21 @@
 <style>
 
     .fc .fc-timegrid-slot {
-        height: 5.5em;
+        height: 4.5em;
     }
 
     .fc-event-main {
         overflow: hidden;
     }
 
+    :root {
+        /*--fc-non-business-color: rgba(215, 215, 215, 0.3);*/
+        /*--fc-bg-event-color: rgb(143, 223, 130);*/
+        /*--fc-bg-event-opacity: 0.3;*/
+        /*--fc-highlight-color: rgba(188, 232, 241, 0.3);*/
+        --fc-today-bg-color: '#D55353';
 
+    }
 </style>
 
 

@@ -38,7 +38,7 @@
                             <label>{{ $__('general.patient') }}</label>
                             <select @change="reset('patient')" class="form-control " id="patient" name=""
                                     v-model="patient">
-                                <option :value="patient" v-for="patient in patients">{{patient.name}}</option>
+                                <option :value="{id:index, name:val}" v-for="(val, index) in patients">{{val}}</option>
                             </select>
 
                             <label class="form-control-label" for="patient" v-if="this.errors.patient"> {{ $__('messages.invalid_name') }}</label>
@@ -83,8 +83,8 @@
                                 id="doctor"
                                 v-model="doctor"
                         >
-                            <template v-for="doctor in doctors">
-                                <option :value="doctor" v-if="doctor.name">{{doctor.name}}</option>
+                            <template v-for="(val, index) in doctors">
+                                <option :value="{id:index,name:val}" v-if="val">{{val}}</option>
                             </template>
 
                         </select>
@@ -146,6 +146,7 @@
                     {color: 'green', value: '#00a86b'},
                 ],
                 doctors: [],
+                patients:'',
 
             }
         },
@@ -182,6 +183,8 @@
                 _.forEach(event.params.doctors,  (value)=> {
                     this.doctors.push(value);
                 });
+
+                this.patients = event.params.patients;
             },
 
             isNew($key) {

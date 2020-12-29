@@ -12,4 +12,10 @@ class SettingController extends Controller
     {
         Setting::find($id)->update($request->all());
     }
+
+    public function store(Request $request){
+        foreach($request->all() as $key => $val){
+            $setting = Setting::where('name', $key)->first()->update(['name' => $key, 'value'=>$val]);
+        }
+    }
 }

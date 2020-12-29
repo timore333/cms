@@ -16,9 +16,9 @@
             </div>
             <div class="card-body">
                 <div class="card-text text-left">
+                    <h4  v-if="!patient.isNew"><span class="fa  fa-folder-open-o"></span> &nbsp {{ patientId }}</h4>
                     <h4 ><span class="fa fa-address-card"></span>&nbsp {{ patientName }}</h4>
                     <h4  v-if="patient.isNew"><span class="fa  fa-phone-square"></span> &nbsp{{ phone }}</h4>
-                    <h4  v-if="!patient.isNew"><span class="fa  fa-folder-open-o"></span> &nbsp {{ patientId }}</h4>
                     <h4 ><span class="fa fa-user-md"></span>&nbsp {{ doctor.name }}</h4>
                 </div>
                 <div class="text-center">

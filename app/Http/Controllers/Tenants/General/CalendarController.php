@@ -6,7 +6,9 @@ use App\Events\Tenants\General\Calendar\AppointmentCreated;
 use App\Events\Tenants\General\Calendar\AppointmentDeleted;
 use App\Http\Controllers\Controller;
 use App\Models\Tenants\Admin\User;
+use App\Models\Tenants\Client\Patient\Patient;
 use App\Models\Tenants\General\Calendar;
+use App\Models\Tenants\General\Setting;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -22,14 +24,14 @@ class CalendarController extends Controller
      */
     public function calendar()
     {
-        $events = [];
-        foreach(Calendar::get() as $event){
-            $event->title = 'title';
-            array_push($events,$event);
-        }
         return Inertia::render('Tenants/General/Calendar', [
-            'events' => fn() => $events,
-            'doctors'=> fn()=>User::role('doctor')->get()
+            'events' => fn() => Calendar::get(),
+            'doctors'=> fn()=>User::role('doctor')->pluck('name','id'),
+            'patients'=>fn()=>Patient::pluck('name','id'),
+            'locale'=>fn()=>Setting::find(3)->value,
+            'slotDuration'=>fn()=>Setting::find(4)->value,
+            'slotMinTime'=>fn()=>Setting::find(5)->value,
+            'slotMaxTime'=>fn()=>Setting::find(6)->value,
         ])->withViewData(['title' => __('general.calendar')]);
 
     }
@@ -53,7 +55,6 @@ class CalendarController extends Controller
      */
     public function store(Request $request)
     {
-
         $event = new Calendar;
         $event->start = $this->parseDate($request->start);
         $event->end = $this->parseDate($request->end);
@@ -63,9 +64,7 @@ class CalendarController extends Controller
         $event->allDay = $request->allDay;
         $event->status = 'waiting';
         $event->save();
-
         event(new AppointmentCreated($event));
-//        return new $event;
     }
 
     /**
@@ -79,16 +78,6 @@ class CalendarController extends Controller
         return new CalendarCollection(Calendar::whereDate('start', $date)->orderBy('start')->get());
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return void
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

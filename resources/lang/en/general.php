@@ -29,6 +29,7 @@ return [
     'print' => 'Print',
     'today' => 'Today',
     'delete' => 'Delete',
+    'select' => 'Select',
 
     'phone' => 'Phone',
     'type' => 'Type',
@@ -51,6 +52,10 @@ return [
     'appointment' => 'Appointment',
     'new_appointment' => 'Add New Appointment',
     'color' => 'Color',
+    'slot_duration' => 'Slot Duration (minute)',
+    'slot_start' => 'First Slot Time',
+    'slot_end' => 'Last Slot Time',
+    'calendar_setting' => 'Calendar Setting',
 
 
     'notifications' => 'Notifications',
@@ -129,6 +134,7 @@ return [
 
     'setting' => 'Setting',
     'priceLists' => 'Price Lists',
+    'priceLists' => 'Price Lists',
 
     'banks' => 'Banks',
 
@@ -180,7 +186,7 @@ return [
     'create_patient' => 'Create Patient',
     'old_patient' => 'Old Patient',
     'select_patient' => 'Select Patient',
-    'profile_image' => 'Profile Image',
+
     'gender' => 'Gender',
     'male' => 'Male',
     'payment' => 'Payment',

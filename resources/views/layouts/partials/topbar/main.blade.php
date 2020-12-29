@@ -4,7 +4,10 @@
         <div class="navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 @include('layouts.partials.topbar.left_sidebar_toggle')
+                @include('layouts.partials.topbar.calendar')
+                @include('layouts.partials.topbar.patient')
                 @include('layouts.partials.topbar.comments')
+
 {{--                @include('layouts.partials.topbar.message')--}}
 {{--                @include('layouts.partials.topbar.search')--}}
             </ul>

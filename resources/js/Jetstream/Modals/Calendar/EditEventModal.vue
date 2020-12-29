@@ -1,29 +1,28 @@
 <template>
     <modal
-            name="edit-event-modal"
             :adaptive="true"
             :resizable="false"
             :scrollable="true"
-            height='auto'
             @before-open="beforeOpen"
+            height='auto'
+            name="edit-event-modal"
 
     >
         <div class="card border-info" style="width:100%;height:100%;margin:0">
             <div class="card-header bg-info">
-                <h4 class="m-b-0 text-white">Edit New Appointment<a href="#" class="pull-right text-white"
-                                                                   @click="hide()">X</a></h4>
+                <h4 class="m-b-0 text-white">{{$__('general.edit')}} {{$__('general.appointment')}}<a @click="hide()" class="pull-right text-white" href="#">X</a></h4>
             </div>
 
             <div class="card-body">
                 <div class="row m-t-20">
                     <div class="col-6">
-                        <button :disabled="newPatient" class="btn btn-block btn-outline-success" @click="isNew(true)">
-                            New Patient
+                        <button :disabled="newPatient" @click="isNew(true)" class="btn btn-block btn-outline-success">
+                            {{$__('general.new_patient')}}
                         </button>
                     </div>
                     <div class="col-6">
-                        <button :disabled="!newPatient" class="btn btn-block btn-outline-success" @click="isNew(false)">
-                            Old Patient
+                        <button :disabled="!newPatient" @click="isNew(false)" class="btn btn-block btn-outline-success">
+                            {{$__('general.old_patient')}}
                         </button>
                     </div>
 
@@ -32,81 +31,75 @@
                 <form class="form-material m-t-40 row">
 
                     <template v-if="!this.newPatient">
-                        <div class="form-group col-md-6 m-t-20" :class="{'has-danger':this.errors.patient}">
-                            <label>Select Patient</label>
-                            <select class="form-control " name="" id="patient" v-model="patient.patient"
-                                    @change="reset('patient')">
-                                <option :value="patient" v-for="patient in patients">{{patient.name}}</option>
+                        <div :class="{'has-danger':this.errors.patient}" class="form-group col-md-6 m-t-20">
+                            <label>{{$__('general.select')}} {{$__('general.patient')}}</label>
+                            <select @change="reset('patient')" class="form-control " id="patient" name=""
+                                    v-model="patient.patient">
+                                <option :value="{id:index, name:val}" v-for="(val, index)  in patients">{{val}}</option>
                             </select>
 
-                            <label class="form-control-label" for="patient" v-if="this.errors.patient">patient name is
-                                required</label>
+                            <label class="form-control-label" for="patient" v-if="this.errors.patient">{{$__('messages.invalid_name')}}</label>
                         </div>
 
                     </template>
                     <template v-if="this.newPatient">
-                        <div class="form-group col-md-6 m-t-20" :class="{'has-danger':this.errors.patient}">
-                            <label>Patient Name</label>
+                        <div :class="{'has-danger':this.errors.patient}" class="form-group col-md-6 m-t-20">
+                            <label>{{$__('general.patient_name')}} </label>
                             <input
+                                    :class="{'form-control-danger':this.errors.patient}"
+                                    @blur="validate('patient')"
+                                    class="form-control "
                                     id="patientName"
                                     type="text"
-                                    class="form-control "
-                                    :class="{'form-control-danger':this.errors.patient}"
                                     v-model="patient.patient"
-                                    @blur="validate('patient')"
                             >
 
-                            <label class="form-control-label" for="patientName" v-if="this.errors.patient">patient name
-                                is
-                                required</label>
+                            <label class="form-control-label" for="patientName" v-if="this.errors.patient">{{$__('messages.invalid_name')}}</label>
                         </div>
 
-                        <div class="form-group col-md-6 m-t-20" :class="{'has-danger':this.errors.phone}">
-                            <label>Patient Phone</label>
+                        <div :class="{'has-danger':this.errors.phone}" class="form-group col-md-6 m-t-20">
+                            <label>{{$__('general.patient')}} {{$__('general.phone')}}</label>
                             <input
+                                    :class="{'form-control-danger':this.errors.phone}"
+                                    @blur="validatePhone()"
+                                    class="form-control "
                                     id="phone"
                                     type="text"
-                                    class="form-control "
-                                    :class="{'form-control-danger':this.errors.phone}"
                                     v-model="patient.phone"
-                                    @blur="validatePhone()"
                             >
-                            <label class="form-control-label" for="phone" v-if="this.errors.phone">phone number is
-                                invalid</label>
+                            <label class="form-control-label" for="phone" v-if="this.errors.phone">{{$__('messages.invalid_phone')}}</label>
                         </div>
 
                     </template>
-                    <div class="form-group col-md-6 m-t-20" :class="{'has-danger':this.errors.doctor}">
+                    <div :class="{'has-danger':this.errors.doctor}" class="form-group col-md-6 m-t-20">
                         <label>Doctor</label>
                         <select
-                                class="form-control"
                                 :class="{'form-control-danger':this.errors.doctor}"
-                                v-model="doctor"
-                                id="doctor"
                                 @change="reset('doctor')"
+                                class="form-control"
+                                id="doctor"
+                                v-model="doctor"
                         >
-                            <template v-for="doctor in doctors">
-                                <option v-if="doctor.name" :value="doctor">{{doctor.name}}</option>
+                            <template v-for="(val, index)  in doctors">
+                                <option :value="{id:index,name:val}" v-if="val">{{val}}</option>
                             </template>
 
                         </select>
-                        <label class="form-control-label" for="doctor" v-if="this.errors.doctor">Please Slect
-                            doctor </label>
+                        <label class="form-control-label" for="doctor" v-if="this.errors.doctor">{{$__('general.select')}} {{$__('general.doctor')}}</label>
                     </div>
 
-                    <div class="form-group col-md-6 m-t-20" :class="{'has-danger':this.errors.color}">
-                        <label>Color</label>
-                        <select id="color" class="form-control" v-model="color"
-                                :class="{'form-control-danger':this.errors.phone}" @change="reset('color')">
-                            <option v-for="color in colors" :value="color.value" :style="{color:color.value}">{{color.color}}</option>
+                    <div :class="{'has-danger':this.errors.color}" class="form-group col-md-6 m-t-20">
+                        <label>{{$__('general.color')}}</label>
+                        <select :class="{'form-control-danger':this.errors.phone}" @change="reset('color')" class="form-control"
+                                id="color" v-model="color">
+                            <option :style="{color:color.value}" :value="color.value" v-for="color in colors">{{color.color}}</option>
 
                         </select>
-                        <label class="form-control-label" for="color" v-if="this.errors.color">Please Slect
-                            color </label>
+                        <label class="form-control-label" for="color" v-if="this.errors.color">{{$__('general.select')}} {{$__('general.color')}}</label>
                     </div>
 
                     <div class="form-group col-md-6 m-t-20">
-                        <button class="btn btn-info" :disabled="!canSubmit" @click.prevent="saveEvent">Save</button>
+                        <button :disabled="!canSubmit" @click.prevent="saveEvent" class="btn btn-info">{{$__('general.save')}}</button>
                     </div>
 
                 </form>
@@ -117,7 +110,6 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'Vuex'
 
     export default {
 
@@ -125,7 +117,7 @@
 
         data() {
             return {
-                eventId:'',
+                eventId: '',
                 newPatient: true,
                 start: '',
                 end: '',
@@ -142,14 +134,24 @@
                     patient: false,
                     doctor: false,
                     color: false
-                }
+                },
+
+                colors: [
+                    {color: 'yellow', value: '#BCD132'},
+                    {color: 'red', value: '#9d3133'},
+                    {color: 'violet', value: '#800080'},
+                    {color: 'teal', value: '#468499'},
+                    {color: 'blue', value: '#00ddff'},
+                    {color: 'green', value: '#00a86b'},
+                ],
+                patients: '',
+                doctors: [],
             }
         },
 
         // //////////////////////
 
         methods: {
-            ...mapActions(['updateEvent']),
 
             show() {
                 this.$modal.show('edit-event-modal');
@@ -159,7 +161,8 @@
             },
 
             beforeOpen(event) {
-                let obj = event.params.event;
+                this.reset();
+                let obj = event.params.event.event;
                 this.eventId = obj.id;
                 this.start = obj.start.toString();
                 this.end = obj.end.toString();
@@ -168,6 +171,10 @@
                 this.color = obj.backgroundColor;
                 this.allDay = obj.allDay;
                 this.newPatient = this.patient.isNew;
+                _.forEach(event.params.doctors, (value) => {
+                    this.doctors.push(value);
+                });
+                this.patients= event.params.patients;
             },
 
             validatePhone() {
@@ -179,6 +186,9 @@
 
             validate(key) {
                 this.errors[key] = !this.patient[key];
+            },
+
+            updateEvent() {
             },
 
             isNew(key) {
@@ -211,6 +221,7 @@
                         phone: '',
                         isNew: '',
                     };
+                    this.doctors = [];
                     this.phone = '';
                     this.color = '';
                     this.allDay = '';
@@ -246,10 +257,9 @@
         // //////////////////////
 
         computed: {
-            ...mapGetters(['doctors', 'patients','colors']),
             event() {
                 return {
-                    id:this.eventId,
+                    id: this.eventId,
                     start: this.start,
                     end: this.end,
                     doctor: this.doctor,

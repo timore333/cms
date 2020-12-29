@@ -12,6 +12,9 @@ class SettingSeeder extends Seeder
         ['name'=>'skin','value' => 'skin-default-dark'],
         ['name'=>'theme','value' => 'dark'],
         ['name'=>'locale','value' => 'en'],
+        ['name'=>'slotDuration', 'value'=>'00:30'],
+        ['name'=>'slotMinTime', 'value'=>'12:00:00'],
+        ['name'=>'slotMaxTime', 'value'=>'24:00:00'],
     ];
     /**
      * Run the database seeds.

@@ -15,6 +15,7 @@ return [
     'choose_permissions' => 'Double Click the permission from the left box to assign && from the right box to remove',
     'invalid_phone' => 'Phone number is invalid',
     'invalid_name' => 'The name is required',
+    'invalid_max_slot_time' => 'start time must be before end time at least : ',
     'invalid_color' => 'Please Select color',
     'invalid_doctor' => 'Please Select Doctor',
     'user_permissions_title' => 'You can give user permission to do specific action, this permission will be add to the permissions assigned through current user role.',

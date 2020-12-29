@@ -4,6 +4,7 @@
     <div class="scroll-sidebar">
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
+                @include('layouts.partials.sidebar.calendar')
                 @include('layouts.partials.sidebar.dashboards')
                 @include('layouts.partials.sidebar.user_managments')
                 @include('layouts.partials.sidebar.medical')
